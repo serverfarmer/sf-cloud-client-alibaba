@@ -9,4 +9,10 @@ elif [ ! -f /etc/local/.cloud/alibaba/$1.sh ]; then
 fi
 
 account=$1
-aliyuncli ecs DescribeImages --profile $account |grep ImageId |awk '{ print $2 }' |sed -e s/\"//g -e s/,//g |grep -v winsvr |grep -v _32_ |sort
+file=/root/.aliyuncli/images.$account.cache
+
+if [ ! -s $file ] || [ `stat -c %Y $file` -le `date -d '-4 hours' +%s` ]; then
+	aliyuncli ecs DescribeImages --profile $account >$file
+fi
+
+grep ImageId $file |awk '{ print $2 }' |sed -e s/\"//g -e s/,//g |grep -v winsvr |grep -v _32_ |sort

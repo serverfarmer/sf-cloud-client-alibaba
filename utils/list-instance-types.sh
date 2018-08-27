@@ -9,9 +9,14 @@ elif [ ! -f /etc/local/.cloud/alibaba/$1.sh ]; then
 fi
 
 account=$1
+file=/root/.aliyuncli/instance-types.$account.cache
+
+if [ ! -s $file ] || [ `stat -c %Y $file` -le `date -d '-4 hours' +%s` ]; then
+	aliyuncli ecs DescribeInstanceTypes --profile $account >$file
+fi
 
 if [ "$2" = "--full" ]; then
-	aliyuncli ecs DescribeInstanceTypes --profile $account
+	cat $file
 else
-	aliyuncli ecs DescribeInstanceTypes --profile $account |grep InstanceTypeId |awk '{ print $2 }' |sed -e s/\"//g -e s/,//g
+	grep InstanceTypeId $file |awk '{ print $2 }' |sed -e s/\"//g -e s/,//g
 fi
