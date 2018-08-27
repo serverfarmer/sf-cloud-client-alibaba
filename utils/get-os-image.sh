@@ -11,4 +11,4 @@ fi
 account=$1
 osname=$2
 
-/opt/farm/ext/cloud-client-alibaba/utils/list-images.sh $account |grep $osname |head -n1
+/opt/farm/ext/cloud-client-alibaba/utils/list-images.sh $account |grep $osname |tail -n1

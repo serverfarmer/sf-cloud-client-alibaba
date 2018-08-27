@@ -27,10 +27,6 @@ echo "#!/bin/sh
 #
 export ALIBABA_PROFILE_NAME=$account
 #
-# default image to install:
-#
-export ALIBABA_IMAGE_OS=ubuntu_16
-#
 # default instance type to use, when type isn't explicitely specified
 #
 export ALIBABA_DEFAULT_INSTANCE_TYPE=$DEFAULT_INSTANCE_TYPE
