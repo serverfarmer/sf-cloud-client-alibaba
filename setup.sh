@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "skipping setup (deprecated extension)"
+exit 0
+
 /opt/farm/ext/packages/utils/install.sh libyaml-dev libpython-dev python-yaml python-pip
 
 echo "checking for pip package aliyun-python-sdk-ecs"
